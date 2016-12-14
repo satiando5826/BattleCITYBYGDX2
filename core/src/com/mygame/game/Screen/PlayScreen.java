@@ -22,6 +22,7 @@ import com.mygame.game.Scenes.HUD;
 import com.mygame.game.Sprites.Bullet;
 import com.mygame.game.Sprites.Tank;
 import com.mygame.game.Tool.B2WorldCreator;
+import com.mygame.game.Tool.WorldContacListener;
 
 /**
  * Created by Aspire on 22/11/2559.
@@ -61,7 +62,7 @@ public class PlayScreen implements Screen {
         hud = new HUD(game.batch);
 
         maploader = new TmxMapLoader();
-        map = maploader.load("Stage-2.tmx");
+        map = maploader.load("Stage-1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ BattleCITYbygdx.PPM);
 
 
@@ -75,6 +76,8 @@ public class PlayScreen implements Screen {
         new B2WorldCreator(world, map);
 
         player = new Tank(world, this);
+
+        world.setContactListener(new WorldContacListener());
     }
 
     public TextureAtlas getAtlas(){
@@ -90,9 +93,9 @@ public class PlayScreen implements Screen {
     public void handleInput(float dt){
         if(Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y<=1){
             player.b2body.applyLinearImpulse(new Vector2(0,0.01f), player.b2body.getWorldCenter(), true);
-            if(directiony >= 4){
+            if(directiony >= 3){
             }else {
-                directiony += 2;
+                directiony += 1.5f;
             }
             if(directionx !=0 ){
                 directionx = 0;
@@ -101,9 +104,9 @@ public class PlayScreen implements Screen {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <=1){
             player.b2body.applyLinearImpulse(new Vector2(0.01f,0), player.b2body.getWorldCenter(), true);
-            if(directionx >= 4){
+            if(directionx >= 3){
             }else {
-                directionx += 2;
+                directionx += 1.5f;
             }
             if(directiony !=0 ){
                 directiony = 0;
@@ -111,9 +114,9 @@ public class PlayScreen implements Screen {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >=-1){
             player.b2body.applyLinearImpulse(new Vector2(-0.01f,0), player.b2body.getWorldCenter(), true);
-            if(directionx <= -4){
+            if(directionx <= -3){
             }else {
-                directionx += -2;
+                directionx += -1.5f;
             }
             if(directiony !=0 ){
                 directiony = 0;
@@ -121,9 +124,9 @@ public class PlayScreen implements Screen {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.b2body.getLinearVelocity().y >=-1){
             player.b2body.applyLinearImpulse(new Vector2(0,-0.01f), player.b2body.getWorldCenter(), true);
-            if(directiony <= -4){
+            if(directiony <= -3){
             }else {
-                directiony += -2;
+                directiony += -1.5f;
             }
             if(directionx !=0 ){
                 directionx = 0;
@@ -132,8 +135,8 @@ public class PlayScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.S)){  //shot bullet
 
                 b3 = new Bullet(world,player,directionx);
-                b3.b2body.applyLinearImpulse(new Vector2(directionx,directiony).add(player.b2body.getLinearVelocity().setLength(0.5f)), player.b2body.getWorldCenter(), true);
-
+             //   b3.b2body.applyLinearImpulse(new Vector2(directionx,directiony).add(player.b2body.getLinearVelocity().setLength(0.5f)), player.b2body.getWorldCenter(), true);
+                b3.b2body.applyLinearImpulse(new Vector2(player.b2body.getLinearVelocity().x,player.b2body.getLinearVelocity().y).setLength(2f), player.b2body.getWorldCenter(), true);
         }
     }
 
@@ -152,7 +155,7 @@ public class PlayScreen implements Screen {
     public void render(float delta){
         update(delta);
 
-        Gdx.gl.glClearColor(0, 0, 0,1);
+        Gdx.gl.glClearColor(50f,0f,10f,10f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
