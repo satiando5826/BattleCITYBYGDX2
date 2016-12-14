@@ -73,9 +73,9 @@ public class PlayScreen implements Screen {
 
 
 
-        new B2WorldCreator(world, map);
+        new B2WorldCreator(this);
 
-        player = new Tank(world, this);
+        player = new Tank(this);
 
         world.setContactListener(new WorldContacListener());
     }

@@ -29,7 +29,7 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-           new metal(world,map,rect);
+           new metal(screen ,rect);
         }
 
 
@@ -79,7 +79,7 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Brick(world,map,rect);
+            new Brick(screen ,rect);
         }
 
      //   Stage frame

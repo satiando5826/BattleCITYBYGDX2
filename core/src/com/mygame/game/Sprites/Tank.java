@@ -26,9 +26,9 @@ public class Tank extends Sprite{
     private Animation tankright;
     private float stateTime;
 
-    public Tank(World world, PlayScreen screen){
+    public Tank(PlayScreen screen){
         super(screen.getAtlas().findRegion("TY1"));
-        this.world = world;
+        this.world = screen.getWorld();
         currentState = State.up;
         pState = State.up;
         stateTime = 0;

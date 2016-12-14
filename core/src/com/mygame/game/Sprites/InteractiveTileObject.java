@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygame.game.BattleCITYbygdx;
+import com.mygame.game.Screen.PlayScreen;
 
 /**
  * Created by Aspire on 8/12/2559.
@@ -18,9 +19,9 @@ public abstract class InteractiveTileObject {
 
     private Body body;
 
-    public  InteractiveTileObject(World world, TiledMap map, Rectangle bounds){
-        this.world = world;
-        this.map = map;
+    public  InteractiveTileObject(PlayScreen screen, Rectangle bounds){
+        this.world = screen.getWorld();
+        this.map = screen.getMap();
         this.bounds = bounds;
 
         BodyDef bdef = new BodyDef();
